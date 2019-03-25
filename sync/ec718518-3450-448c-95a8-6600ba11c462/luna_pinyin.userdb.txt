@@ -1,0 +1,70 @@
+# Rime user dictionary
+#@/db_name	luna_pinyin.userdb
+#@/db_type	userdb
+#@/rime_version	1.2.9
+#@/tick	86
+#@/user_id	ec718518-3450-448c-95a8-6600ba11c462
+a 	啊	c=1 d=1 t=77
+ba 	吧	c=2 d=1.67429 t=86
+bei 	被	c=2 d=1.89307 t=86
+bi jiao 	比較	c=1 d=1 t=82
+bing mei you 	並沒有	c=1 d=0.892047 t=86
+bing mei you dong guo 	並沒有動過	c=1 d=0.818731 t=86
+bu gou 	不夠	c=1 d=0.752014 t=86
+bu pa 	不怕	c=1 d=0.980199 t=86
+ce shi 	測試	c=1 d=0.955997 t=86
+cuo wu 	錯誤	c=1 d=0.790571 t=86
+dai ma 	代碼	c=1 d=0.99005 t=86
+dan teng 	蛋疼	c=1 d=1 t=83
+de 	的	c=5 d=4.41279 t=86
+dong guo 	動過	c=1 d=0.896112 t=86
+dong xi 	東西	c=1 d=1 t=81
+ei 	誒	c=0 d=0.0985112 t=86
+fan fan 	翻番	c=1 d=1 t=86
+gong gao 	公告	c=1 d=0.985112 t=86
+ha ha ha 	哈哈哈	c=1 d=0.951229 t=86
+hao 	好	c=1 d=0.744532 t=86
+hao ya 	好呀	c=1 d=1.00355 t=86
+he le 	合了	c=1 d=0.759572 t=86
+hui zhi 	回執	c=1 d=0.970446 t=86
+ji he 	集合	c=1 d=0.965605 t=86
+jing du 	精度	c=1 d=1 t=78
+ke yi 	可以	c=3 d=2.69436 t=86
+kong jian 	控件	c=2 d=1.71337 t=86
+kong jian 	空間	c=1 d=0.882497 t=86
+la da 	拉大	c=2 d=1.90256 t=86
+le 	了	c=3 d=2.45259 t=86
+liu lan qi 	瀏覽器	c=3 d=2.79274 t=86
+mao si 	貌似	c=2 d=1.63951 t=86
+mei you 	沒有	c=1 d=0.963533 t=86
+mei you ei 	沒有誒	c=1 d=0.99005 t=86
+miao kai 	秒開	c=1 d=0.937067 t=86
+na li 	哪裏	c=1 d=0.960789 t=86
+ni 	你	c=0 d=0.0941765 t=86
+ni hao 	你好	c=1 d=0.806541 t=86
+ni hao ya 	你好呀	c=1 d=0.946485 t=86
+pao chu 	拋出	c=1 d=0.798516 t=86
+pu 	噗	c=1 d=0.97531 t=86
+qu 	去	c=1 d=1 t=85
+quan xian 	權限	c=1 d=0.748264 t=86
+shang chuan 	上傳	c=1 d=0.831104 t=86
+shi 	是	c=2 d=1.77185 t=86
+ta 	他	c=1 d=0.774916 t=86
+ti tong 	體統	c=1 d=0.847894 t=86
+wen ti 	問題	c=2 d=1.88872 t=86
+wo 	我	c=3 d=2.57342 t=86
+xi tong 	系統	c=1 d=0.852144 t=86
+xia xian 	下線	c=2 d=1.97521 t=86
+xiao xi 	消息	c=1 d=0.97531 t=86
+xuan ran 	渲染	c=1 d=0.965605 t=86
+ya 	呀	c=2 d=1.80067 t=86
+yo yo yo 	喲喲喲	c=1 d=0.985112 t=86
+yong 	用	c=1 d=0.843665 t=86
+you hua 	優化	c=1 d=0.869358 t=86
+yuan su 	元素	c=3 d=2.80674 t=86
+zai 	在	c=1 d=0.786628 t=86
+zhe bian 	這邊	c=2 d=1.75058 t=86
+zhe li 	這裏	c=1 d=0.794534 t=86
+zhi dao 	知道	c=1 d=0.767206 t=86
+zhi jie 	直接	c=1 d=0.782705 t=86
+zhong 	種	c=1 d=1 t=80
