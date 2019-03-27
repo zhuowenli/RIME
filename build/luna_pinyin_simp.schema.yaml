@@ -2,11 +2,11 @@ __build_info:
   rime_version: 1.4.0
   timestamps:
     default: 1548171029
-    default.custom: 1553493193
+    default.custom: 1553493577
     key_bindings: 1548171029
     key_bindings.custom: 0
-    luna_pinyin_simp.custom: 1553493278
-    luna_pinyin_simp.schema: 1527497882
+    luna_pinyin_simp.custom: 1553652480
+    luna_pinyin_simp.schema: 1553652555
     punctuation: 1548171029
     punctuation.custom: 0
     symbols: 1527489582
