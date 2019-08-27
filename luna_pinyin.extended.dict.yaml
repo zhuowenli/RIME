@@ -1,0 +1,35 @@
+# Rime dictionary
+# encoding: utf-8
+#
+# 「Rime词库扩展计划」——为小狼毫打造一个强大好用的词库（OpenCC重制版） by @imy0823
+#
+#
+# 部署位置：
+# ~/.config/ibus/rime  (Linux)
+# ~/Library/Rime  (Mac OS)
+# %APPDATA%\Rime  (Windows)
+#
+# 於重新部署後生效
+#
+
+---
+name: luna_pinyin.extended
+version: "2014.09.07"
+sort: by_weight
+use_preset_vocabulary: true
+#下面的是本词库包含的所有词库，请根据需要开启/禁用，词条前添删#号即可开启/关闭词库。
+import_tables:
+  - luna_pinyin      #系统自带词库，无意外必须开启。
+  # 分类扩展词库
+  - luna_pinyin.extended/luna_pinyin.basis     #精选的基本词库，搜集于拼音加加、小麥、新酷音、維基百科等。
+  - luna_pinyin.extended/luna_pinyin.hanyu  #汉语大词典，多为2字词。 2.2w
+  - luna_pinyin.extended/luna_pinyin.poetry #常用诗词，来源于唐宋诗词、千家詩、花間集、楚辭、詩經。 2.6w
+  - luna_pinyin.extended/luna_pinyin.cn_en    #中英混合词条，含如哆啦A梦之类的词条，目前词库很小。
+  - luna_pinyin.extended/luna_pinyin.computer_science  #电脑词汇，计算机科学相关，普通应用足够
+  - luna_pinyin.extended/luna_pinyin.anime   #动漫词汇大全，动画、主要角色、声优等等。3w
+  - luna_pinyin.extended/luna_pinyin.chat   #日常聊天常用词，请叫我聊天达人。3.5k
+  - luna_pinyin.extended/luna_pinyin.movie   #电影相关词汇，片名、演员、导演神马的。1.3w
+  - luna_pinyin.extended/luna_pinyin.music   #音乐相关词汇，歌曲、制作人、歌星之类的。2w
+  - luna_pinyin.extended/luna_pinyin.biaoqing  #颜表情，ಠ_ಠ、(｡>ㅅ<｡)、(☍﹏⁰)、(￣_￣|||)..     0.2k
+  - luna_pinyin.extended/luna_pinyin.website   #网站大全，百度、知乎神马的。5k
+...

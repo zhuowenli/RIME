@@ -10,26 +10,6 @@ patch:
     Shift_L: commit_code
     Shift_R: commit_code
 
-  switches:
-    - name: ascii_mode
-      reset: 0
-      states: ["中文", "西文"]
-    - name: full_shape
-      states: ["半角", "全角"]
-    - name: zh_simp                      # (※1) 繁简转换
-      reset: 1
-      states: ["漢字", "汉字"]
-
-    - options: ["utf8", "gbk", "gb2312"] # (※2)字符集选单
-      reset: 0                           #     默认 UTF8
-      states:
-        - UTF-8
-        - GBK
-        - GB2312
-    - name: show_emoji
-      reset: 1
-      states: [ "🈚️️\uFE0E", "🈶️️\uFE0F" ]
-
   engine/filters:
       - simplifier
       - simplifier@emoji_conversion
@@ -37,10 +17,19 @@ patch:
       - charset_filter@gbk              # (※3) GBK 过滤
       - single_char_filter
 
-  emoji_conversion:
-    opencc_config: emoji.json
-    option_name: show_emoji
-    tags: abc
+  # 反查（笔画和表情）输入依赖
+  "schema/dependencies":
+      - emoji
+  "recognizer/patterns/reverse_lookup": "u(b|e)[a-z]*'?$"
+
+  # 表情输入
+  "engine/translators/@after 2": reverse_lookup_translator@reverse_lookup_emoji
+  reverse_lookup_emoji:
+    dictionary: emoji
+    enable_completion: true
+    prefix: ue
+    suffix: "'"
+    tips: '「表情」'
 
   # 改寫拼寫運算，使得含西文的詞彙（位於 luna_pinyin.cn_en.dict.yaml 中）不影響簡拼功能（注意，此功能只適用於朙月拼音系列方案，不適用於各類雙拼方案）
   # 本條補靪只在「小狼毫 0.9.30」、「鼠鬚管 0.9.25 」、「Rime-1.2」及更高的版本中起作用。
@@ -59,7 +48,7 @@ patch:
     initial_quality: -2           # 调整英文候选词的位置，如 -3 会更靠后
 
   #  載入朙月拼音擴充詞庫
-  # "translator/dictionary": luna_pinyin.extended
+  "translator/dictionary": luna_pinyin.extended
 
   # 模糊拼音
   'speller/algebra':
