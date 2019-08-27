@@ -11,15 +11,15 @@ patch:
     Shift_R: commit_code
 
   engine/filters:
-      - simplifier
-      - simplifier@emoji_conversion
-      - uniquifier
-      - charset_filter@gbk              # (※3) GBK 过滤
-      - single_char_filter
+    - simplifier
+    - simplifier@emoji_conversion
+    - uniquifier
+    - charset_filter@gbk              # (※3) GBK 过滤
+    - single_char_filter
 
   # 反查（笔画和表情）输入依赖
   "schema/dependencies":
-      - emoji
+    - emoji
   "recognizer/patterns/reverse_lookup": "u(b|e)[a-z]*'?$"
 
   # 表情输入
@@ -72,3 +72,27 @@ patch:
     - derive/ao$/oa/                   # hoa => hao
     - derive/ua$/au/                   # shau => shua
     - derive/([iu])a(o|ng?)$/a$1$2/    # tain => tian
+
+  #  符号快速输入和部分符号的快速上屏
+  punctuator:
+    import_preset: symbols
+    half_shape:
+      "#": "#"
+      "*": "*"
+      "`": "`"
+      "~": "~"
+      "@": "@"
+      "=": "="
+      "/": "/"
+      "[": "【"
+      "]": "】"
+      '{': [ 〖, ｛ ]
+      '}': [ 〗, ｝ ]
+      '\': "、"
+      "_" : "──"
+      "'": {pair: ["「", "」"]}
+      "\"": {pair: ["『", "』"]}
+      "$": ["¥", "$", "€", "£", "¢", "¤"]
+      "<": ["《", "〈", "«", "<"]
+      ">": ["》", "〉", "»", ">"]
+  recognizer/patterns/punct: "^/([a-z]+|[0-9]0?)$"
