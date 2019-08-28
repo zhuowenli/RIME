@@ -13,4 +13,7 @@ patch:
 
   app_options:
     com.googlecode.iterm2:
-      ascii_mode: false
+      ascii_mode: true
+    com.apple.Finder:
+      ascii_mode: true
+      no_inline: true

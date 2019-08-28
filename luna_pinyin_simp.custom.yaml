@@ -12,40 +12,33 @@ patch:
 
   engine/filters:
     - simplifier
-    - simplifier@emoji_conversion
-    - uniquifier
-    - charset_filter@gbk              # (※3) GBK 过滤
-    - single_char_filter
-
-  # 反查（笔画和表情）输入依赖
-  "schema/dependencies":
-    - emoji
-  "recognizer/patterns/reverse_lookup": "u(b|e)[a-z]*'?$"
-
-  # 表情输入
-  "engine/translators/@after 2": reverse_lookup_translator@reverse_lookup_emoji
-  reverse_lookup_emoji:
-    dictionary: emoji
-    enable_completion: true
-    prefix: ue
-    suffix: "'"
-    tips: '「表情」'
+    # - simplifier@emoji_conversion
+    # - uniquifier
+    # - charset_filter@gbk              # (※3) GBK 过滤
+    # - single_char_filter
 
   # 改寫拼寫運算，使得含西文的詞彙（位於 luna_pinyin.cn_en.dict.yaml 中）不影響簡拼功能（注意，此功能只適用於朙月拼音系列方案，不適用於各類雙拼方案）
   # 本條補靪只在「小狼毫 0.9.30」、「鼠鬚管 0.9.25 」、「Rime-1.2」及更高的版本中起作用。
   "speller/algebra/@before 0": xform/^([b-df-hj-np-tv-z])$/$1_/
 
-  # 加載 easy_en 依賴
+  # 输入依赖
   # "schema/dependencies/@1": easy_en
-  # 載入翻譯英文的碼表翻譯器，取名爲 english
-  # "engine/translators/@4": table_translator@english
-  # english 翻譯器的設定項
-  english:
-    dictionary: easy_en
-    spelling_hints: 9
-    enable_completion: false     # 是否启用英文输入联想补全
-    enable_sentence: false
-    initial_quality: -2           # 调整英文候选词的位置，如 -3 会更靠后
+  # "schema/dependencies/@2": emoji
+  # "engine/translators/@4": table_translator@easy_en
+  # "engine/translators/@after 2": reverse_lookup_translator@reverse_lookup_emoji
+  # "recognizer/patterns/reverse_lookup": "u(b|e)[a-z]*'?$"
+
+  # 加載 easy_en 依賴
+  # easy_en:
+  #   dictionary: easy_en
+
+  # 表情输入
+  # reverse_lookup_emoji:
+  #   dictionary: emoji
+  #   enable_completion: true
+  #   prefix: ue
+  #   suffix: "'"
+  #   tips: '「表情」'
 
   #  載入朙月拼音擴充詞庫
   "translator/dictionary": luna_pinyin.extended
