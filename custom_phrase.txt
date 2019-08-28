@@ -1,0 +1,10 @@
+# 自定义输入法内容
+# coding: utf-8
+# @/db_name  custom_phrase.txt
+# @/db_type	tabledb
+#
+# 用於【朙月拼音】系列輸入方案
+# 【小狼毫】0.9.21 以上
+
+中州韻輸入法引擎	rime	3
+zhuowenligg@gmail.com	email

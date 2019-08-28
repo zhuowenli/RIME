@@ -1,91 +1,107 @@
 # luna_pinyin.custom.yaml
-#
-# 補靪功能：將朙月拼音的詞庫修改爲朙月拼音擴充詞庫
-#
-# 作者：瑾昀 <cokunhui@gmail.com>
+# encoding: utf-8
 
 patch:
   # 左右 Shift 上屏英文
   ascii_composer/switch_key:
     Shift_L: commit_code
     Shift_R: commit_code
-
-  engine/filters:
-    - simplifier
-    # - simplifier@emoji_conversion
-    # - uniquifier
-    # - charset_filter@gbk              # (※3) GBK 过滤
-    # - single_char_filter
-
-  # 改寫拼寫運算，使得含西文的詞彙（位於 luna_pinyin.cn_en.dict.yaml 中）不影響簡拼功能（注意，此功能只適用於朙月拼音系列方案，不適用於各類雙拼方案）
-  # 本條補靪只在「小狼毫 0.9.30」、「鼠鬚管 0.9.25 」、「Rime-1.2」及更高的版本中起作用。
-  "speller/algebra/@before 0": xform/^([b-df-hj-np-tv-z])$/$1_/
-
-  # 输入依赖
-  # "schema/dependencies/@1": easy_en
-  # "schema/dependencies/@2": emoji
-  # "engine/translators/@4": table_translator@easy_en
-  # "engine/translators/@after 2": reverse_lookup_translator@reverse_lookup_emoji
-  # "recognizer/patterns/reverse_lookup": "u(b|e)[a-z]*'?$"
-
-  # 加載 easy_en 依賴
-  # easy_en:
-  #   dictionary: easy_en
-
-  # 表情输入
-  # reverse_lookup_emoji:
-  #   dictionary: emoji
-  #   enable_completion: true
-  #   prefix: ue
-  #   suffix: "'"
-  #   tips: '「表情」'
-
-  #  載入朙月拼音擴充詞庫
+  punctuator/half_shape:
+    "/"" : "/"
+    "\"" : "、"
+    "'": {pair: ["「", "」"]}
+    "\"": {pair: ["『", "』"]}
+    "[": "【"
+    "]": "】"
+    "~": "~"
+    "*": "*"
   "translator/dictionary": luna_pinyin.extended
+  "speller/algebra/@before 0": xform/^([b-df-hj-np-tv-z])$/$1_/ # 改寫拼寫運算，使得含西文的詞彙不影響簡拼功能
 
-  # 模糊拼音
-  'speller/algebra':
-    - erase/^xx$/                      # 第一行保留
-    # 韻母部份
-    #- derive/^([bpmf])eng$/$1ong/      # meng = mong, ...
-    - derive/([ei])n$/$1ng/            # en => eng, in => ing
-    - derive/([ei])ng$/$1n/            # eng => en, ing => in
+engine:                    # 輸入引擎設定，即掛接組件的「處方」
+  processors:              # 一、這批組件處理各類按鍵消息
+    - ascii_composer       # ※ 處理西文模式及中西文切換
+    - recognizer           # ※ 與 matcher 搭配，處理符合特定規則的輸入碼，如網址、反查等
+    - key_binder           # ※ 在特定條件下將按鍵綁定到其他按鍵，如重定義逗號、句號爲候選翻頁鍵
+    - speller              # ※ 拼寫處理器，接受字符按鍵，編輯輸入碼
+    - punctuator           # ※ 句讀處理器，將單個字符按鍵直接映射爲文字符號
+    - selector             # ※ 選字處理器，處理數字選字鍵、上、下候選定位、換頁鍵
+    - navigator            # ※ 處理輸入欄內的光標移動鍵
+    - express_editor       # ※ 編輯器，處理空格、回車上屏、回退鍵等
+  segmentors:              # 二、這批組件識別不同內容類型，將輸入碼分段
+    - ascii_segmentor      # ※ 標識西文段落
+    - matcher              # ※ 標識符合特定規則的段落，如網址、反查等
+    - abc_segmentor        # ※ 標識常規的文字段落
+    - punct_segmentor      # ※ 標識句讀段落
+    - fallback_segmentor   # ※ 標識其他未標識段落
+  translators:             # 三、這批組件翻譯特定類型的編碼段爲一組候選文字
+    - echo_translator      # ※ 沒有其他候選字時，回顯輸入碼
+    - punct_translator     # ※ 轉換標點符號
+    - script_translator    # ※ 腳本翻譯器，用於拼音等基於音節表的輸入方案
+    - reverse_lookup_translator  # ※ 反查翻譯器，用另一種編碼方案查碼
+  filters:                 # 四、這批組件過濾翻譯的結果
+    - simplifier           # ※ 繁簡轉換
+    - uniquifier           # ※ 過濾重複的候選字，有可能來自繁簡轉換
 
-    # 模糊音定義先於簡拼定義，方可令簡拼支持以上模糊音
-    - abbrev/^([a-z]).+$/$1/           # 簡拼（首字母）
-    - abbrev/^([zcs]h).+$/$1/          # 簡拼（zh, ch, sh）
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba  # 呃，倒背字母表完全是個人喜好
+  delimiter: " '"  # 隔音符號用「'」；第一位的空白用來自動插入到音節邊界處
+  algebra:  # 拼寫運算規則，這個纔是實現雙拼方案的重點。寫法有很多種，當然也可以把四百多個音節碼一條一條地列舉
+    - erase/^xx$/             # 碼表中有幾個拼音不明的字，編碼成xx了，消滅他
+    - derive/^([jqxy])u$/$1v/
+    - xform/^zh/A/            # 替換聲母鍵，用大寫以防與原有的字母混淆
+    - xform/^ch/E/
+    - xform/^sh/V/
+    - xform/^([aoe].*)$/O$1/  # 添上固定的零聲母o，先標記爲大寫O
+    - xform/ei$/Q/            # 替換韻母鍵
+    - xform/ian$/W/           # ※2
+    - xform/er$|iu$/R/        # 對應兩種韻母的；音節er現在變爲OR了
+    - xform/[iu]ang$/T/       # ※1
+    - xform/ing$/Y/
+    - xform/uo$/O/
+    - xform/uan$/P/           # ※3
+    - xform/i?ong$/S/
+    - xform/[iu]a$/D/
+    - xform/en$/F/
+    - xform/eng$/G/
+    - xform/ang$/H/           # 檢查一下在此之前是否已轉換過了帶介音的ang；好，※1處有了
+    - xform/an$/J/            # 如果※2、※3還無有出現在上文中，應該把他們提到本行之前
+    - xform/iao$/Z/           # 對——像這樣讓iao提前出場
+    - xform/ao$/K/
+    - xform/in$|uai$/C/       # 讓uai提前出場
+    - xform/ai$/L/
+    - xform/ie$/X/
+    - xform/ou$/B/
+    - xform/un$/N/
+    - xform/[uv]e$|ui$/M/
 
-    # 以下是一組容錯拼寫，《漢語拼音》方案以前者爲正
-    - derive/^([nl])ve$/$1ue/          # nve = nue, lve = lue
+custom_phrase:
+  dictionary: ""
+  user_dict: custom_phrase
+  db_class: stabledb
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 1
 
-    # 自動糾正一些常見的按鍵錯誤
-    - derive/([aeiou])ng$/$1gn/        # dagn => dang
-    - derive/([dtngkhrzcs])o(u|ng)$/$1o/  # zho => zhong|zhou
-    - derive/ong$/on/                  # zhonguo => zhong guo
-    - derive/ao$/oa/                   # hoa => hao
-    - derive/ua$/au/                   # shau => shua
-    - derive/([iu])a(o|ng?)$/a$1$2/    # tain => tian
+translator:
+  dictionary: luna_pinyin
+  prism: luna_pinyin_simp
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
 
-  #  符号快速输入和部分符号的快速上屏
-  punctuator:
-    import_preset: symbols
-    half_shape:
-      "#": "#"
-      "*": "*"
-      "`": "`"
-      "~": "~"
-      "@": "@"
-      "=": "="
-      "/": "/"
-      "[": "【"
-      "]": "】"
-      '{': [ 〖, ｛ ]
-      '}': [ 〗, ｝ ]
-      '\': "、"
-      "_" : "──"
-      "'": {pair: ["「", "」"]}
-      "\"": {pair: ["『", "』"]}
-      "$": ["¥", "$", "€", "£", "¢", "¤"]
-      "<": ["《", "〈", "«", "<"]
-      ">": ["》", "〉", "»", ">"]
-  recognizer/patterns/punct: "^/([a-z]+|[0-9]0?)$"
+simplifier:
+  option_name: zh_simp
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+  bindings:
+    - { when: always, accept: Control+Shift+4, toggle: zh_simp }
+    - { when: always, accept: Control+Shift+dollar, toggle: zh_simp }
+
+recognizer:
+  import_preset: default
