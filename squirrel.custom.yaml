@@ -17,3 +17,5 @@ patch:
     com.apple.Finder:
       ascii_mode: true
       no_inline: true
+    com.microsoft.VSCod:
+      ascii_mode: true
