@@ -23,7 +23,7 @@ use_preset_vocabulary: true
 AA制	a a zhi	100
 ATM機	a t m ji	100
 Android	android	100
-english english 100
+English english 100
 A片	a pian	100
 A盤	a pan	100
 A股	a gu	100
@@ -39,6 +39,7 @@ DVD	d v d	100
 D盤	d pan	100
 E盤	e pan	100
 F盤	f pan	100
+GitHub github 100
 Google	google	100
 G盤	g pan	100
 G點	g dian	100
@@ -77,6 +78,7 @@ USB	u s b	100
 U形管	u xing guan	100
 U盤	u pan	100
 U盾	u dun	100
+Ubuntu ubuntu 100
 WiFi	wai fai	100
 WiFi	wi fi	100
 X光	x guang	100
