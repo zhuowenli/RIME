@@ -8,3 +8,8 @@
 
 中州韻輸入法引擎	rime	3
 zhuowenligg@gmail.com	email
+zhuowenligg@gmail.com	zhuo
+卓	zhuo
+卓文理	zwl
+WebSocket ws
+WebSocket websocket

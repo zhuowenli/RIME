@@ -2,6 +2,8 @@
 # encoding: utf-8
 
 patch:
+  "switches/@0/reset": 1
+
   engine:                    # 輸入引擎設定，即掛接組件的「處方」
     processors:              # 一、這批組件處理各類按鍵消息
       - ascii_composer       # ※ 處理西文模式及中西文切換
@@ -41,14 +43,6 @@ patch:
     # - derive/([dtngkhrzcs])o(u|ng)$/$1o/  # zho => zhong|zhou
     # - derive/ong$/on/                  # zhonguo => zhong guo
   "speller/algebra/@before 0": xform/^([b-df-hj-np-tv-z])$/$1_/
-
-  custom_phrase:
-    dictionary: luna_pinyin.extended
-    user_dict: custom_phrase
-    db_class: stabledb
-    enable_completion: false
-    enable_sentence: false
-    initial_quality: 1
 
   "translator/dictionary": luna_pinyin.extended
   "translator/enable_correction": true
@@ -97,3 +91,11 @@ patch:
     switch_key:
       Shift_L: commit_code
       Shift_R: commit_code
+
+custom_phrase:
+  dictionary: luna_pinyin
+  user_dict: custom_phrase
+  db_class: stabledb
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 1
