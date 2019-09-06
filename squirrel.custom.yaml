@@ -12,10 +12,11 @@ patch:
     border_width: 0                         # 窗口边界宽度，大于圆角半径才生效
 
   app_options:
-    com.googlecode.iterm2:
-      ascii_mode: true
-    com.apple.Finder:
-      ascii_mode: true
-      no_inline: true
-    com.microsoft.VSCod:
-      ascii_mode: true
+    com.taobao.Aliworkbench:
+      ascii_mode: false
+    com.taobao.Aliwangwang:
+      ascii_mode: false
+    com.google.Chrome:
+      ascii_mode: false
+    com.tencent.xinWeChat:
+      ascii_mode: false
